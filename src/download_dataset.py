@@ -2,6 +2,7 @@ import os
 import sys
 import zipfile
 import requests
+import torch
 from tqdm import tqdm
 
 DATA_URL = (
@@ -10,28 +11,18 @@ DATA_URL = (
 )
 
 SCRIPT_DIRECTORY = os.path.dirname(os.path.abspath(__file__))
-OUTPUT_DIR = f"{SCRIPT_DIRECTORY}/../data/raw"
+OUTPUT_DIR = os.path.join(SCRIPT_DIRECTORY, "..", "data", "raw")
 ZIP_NAME = "dataset-food-classification.zip"
 ZIP_PATH = os.path.join(OUTPUT_DIR, ZIP_NAME)
 
-def download_with_progress(url, output_path):
-    with requests.get(url, stream=True) as response:
-        response.raise_for_status()
-
-        total_size = int(response.headers.get("content-length", 0))
-        chunk_size = 1024 * 1024
-
-        with open(output_path, "wb") as f, tqdm(
-            total=total_size,
-            unit="B",
-            unit_scale=True,
-            unit_divisor=1024,
-            desc="Downloading dataset",
-        ) as pbar:
-            for chunk in response.iter_content(chunk_size=chunk_size):
-                if chunk:
-                    f.write(chunk)
-                    pbar.update(len(chunk))
+def download_dataset(url, output_path):
+    print("📥 Downloading dataset using PyTorch...")
+    torch.hub.download_url_to_file(
+        url=url,
+        dst=output_path,
+        progress=True
+    )
+    print(f"✅ Download complete: {output_path}")
 
 def unzip_dataset(zip_path, extract_to):
     print("📦 Extracting dataset...")
@@ -72,7 +63,7 @@ def main():
     if not os.path.exists(ZIP_PATH):
         print("📥 Starting dataset download...")
         try:
-            download_with_progress(DATA_URL, ZIP_PATH)
+            download_dataset(DATA_URL, ZIP_PATH)
             print(f"✅ Download complete: {ZIP_PATH}")
         except Exception as e:
             print("❌ Download failed.")
