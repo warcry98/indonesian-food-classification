@@ -63,11 +63,6 @@ cross-validation. Search spaces are constrained to ensure CPU-only execution.
 Models are evaluated using:
 - Accuracy
 - Confusion matrix
-- Per-class error analysis
-- Cross-model confusion comparison
-
-Most errors are caused by visual similarity between food categories and
-class imbalance.
 
 ---
 
@@ -120,7 +115,7 @@ pip install -r requirements.txt
 
 ```bash
 # Start backend
-uvicorn backend.api:app --port 8000
+uvicorn backend.api:app --host 0.0.0.0 --port 8000
 
 # Start frontend
 streamlit run app.py

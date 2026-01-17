@@ -6,7 +6,7 @@ import seaborn as sns
 from sklearn.metrics import confusion_matrix, accuracy_score
 
 SCRIPT_DIRECTORY = os.path.dirname(os.path.abspath(__file__))
-EMBEDDING_DIR = os.path.join(SCRIPT_DIRECTORY, "..", "data", "emneddings")
+EMBEDDING_DIR = os.path.join(SCRIPT_DIRECTORY, "..", "data", "embeddings")
 MODEL_DIR = os.path.join(SCRIPT_DIRECTORY, "..", "models")
 
 X_test = np.load(os.path.join(EMBEDDING_DIR, "X_test.npy"))
