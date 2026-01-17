@@ -1,3 +1,4 @@
+import os
 from unittest import result
 import requests
 import streamlit as st
@@ -14,7 +15,7 @@ model_ml = [
 uploaded = st.file_uploader("Upload food image", type=["jpg", "png"])
 model_name = st.selectbox("Select model", model_ml)
 
-API_URL = "http://localhost:8000/predict"
+API_URL = os.getenv("API_URL", "http://localhost:8000/predict") 
 
 if uploaded:
     files = {"file": uploaded.getvalue()}
