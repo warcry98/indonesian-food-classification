@@ -1,6 +1,9 @@
 # Indonesian Food Image Classification
 (PyTorch + Classical Machine Learning)
 
+API DOC running at: https://api.fundprobe.qzz.io/docs
+Streamlit UI running at: https://web.fundprobe.qzz.io/
+
 ## Problem Description
 This project solves a multiclass image classification problem:
 given an image of Indonesian food, the goal is to predict the food category.
